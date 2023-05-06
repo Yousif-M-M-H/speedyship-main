@@ -1,8 +1,10 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:speedyship/pages/shipments/shipmentForm.dart';
+import 'package:speedyship/pages/shipments/showShipments.dart';
 import 'admin/admin_main.dart';
 import 'introduction/EditUserInfo.dart';
 import 'package:image_picker/image_picker.dart';
@@ -85,6 +87,16 @@ class _HomePageState extends State<HomePage> {
                   );
                 },
                 child: Text("Shipment form")),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => ShipmentList(),
+                  ),
+                );
+              },
+              child: Text("added shipment"),
+            ),
           ],
         ),
       ),
