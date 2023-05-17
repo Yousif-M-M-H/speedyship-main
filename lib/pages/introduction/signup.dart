@@ -12,6 +12,7 @@ import 'package:speedyship/components/date_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
+import 'package:speedyship/pages/introduction/login.dart';
 import 'package:speedyship/services/auth_service.dart';
 import '../../components/image_picker.dart';
 import 'package:speedyship/services/auth_service.dart';
@@ -59,6 +60,7 @@ class _SignupPageState extends State<SignupPage> {
         'PhoneNumber': phonecontroller.text,
         'DateOfBirth': selectedDate,
         'image': imageUrl,
+        'role': 'user',
       });
 
       //Login a user after they sign up
@@ -225,7 +227,10 @@ class _SignupPageState extends State<SignupPage> {
 
               const SizedBox(height: 25),
               //sign in button
-              MyButton2(onTap: () => signup()),
+              MyButton2(
+                onTap: () => signup(),
+                buttonText: 'Sign Up',
+              ),
               const SizedBox(height: 50),
               //or continue with
               Padding(
@@ -290,7 +295,8 @@ class _SignupPageState extends State<SignupPage> {
                   const SizedBox(width: 4),
                   InkWell(
                     onTap: () {
-                      Navigator.pop(context);
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => LoginPage()));
                     },
                     child: const Text(
                       'Sign in now',

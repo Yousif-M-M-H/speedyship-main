@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:speedyship/pages/courier/newcourierpage.dart';
 import 'UserDashboard.dart';
 import 'courierDashboard.dart';
 import 'ProductsDashboard.dart';
@@ -96,6 +97,13 @@ class _MyHomePageState extends State<AdminHome> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => ProductsDashboard()),
+                  );
+                }),
+                SizedBox(width: 16),
+                _buildDashboardButton('APPLICANTS', Icons.local_shipping, () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => NewCourierPage()),
                   );
                 }),
               ],

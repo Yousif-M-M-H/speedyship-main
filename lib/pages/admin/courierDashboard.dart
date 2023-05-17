@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class User {
@@ -15,18 +17,31 @@ class CourierDashboard extends StatefulWidget {
 }
 
 class _CourierDashboardState extends State<CourierDashboard> {
-  List<User> users = [
-    User('REIAD Doe', 'john@example.com', '1234567890',
-        '123 Street, City, Country'),
-    User('IBRAHEM Smith', 'jane@example.com', '2345678901',
-        '234 Street, City, Country'),
-    User('YUSUF Johnson', 'mary@example.com', '3456789012',
-        '345 Street, City, Country'),
-    User('AMIR Brown', 'michael@example.com', '4567890123',
-        '456 Street, City, Country'),
-    User('AMRO KOS', 'michael@example.com', '5678901234',
-        '567 Street, City, Country'),
-  ];
+  List<User> users = [];
+
+  @override
+  void initState() {
+    super.initState();
+    fetchUsers();
+  }
+
+  Future<void> fetchUsers() async {
+    final FirebaseAuth auth = FirebaseAuth.instance;
+
+    final QuerySnapshot snapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .where('role', isEqualTo: 'courier')
+        .get();
+
+    final List<User> users = snapshot.docs
+        .map((doc) => User(
+            doc['firstName'], doc['email'], doc['PhoneNumber'], doc['role']))
+        .toList();
+
+    setState(() {
+      this.users = users;
+    });
+  }
 
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
